@@ -1,7 +1,7 @@
 var svg = document.getElementById("svg");
 var bc = 0;
 
-function Plant(x,y,len,vert)
+function Plant(x,y,len,anglerange,verts,startdir,canbranch)
 {
     this.element;
     this.points = [x,y];
@@ -18,28 +18,33 @@ function Plant(x,y,len,vert)
     this.gen = function()
     {
     
-        var dir = -90;
+        var dir = startdir;
         var cx = x;
         var cy = y;
     
-        for (var _ = 0; _ < 100; _++)
+        for (var _ = 0; _ < verts; _++)
         {
-            dir = ((Math.random() * vert) - (vert/2)) - 90;
+            dir += (((Math.random() * anglerange) - (anglerange/2)));
             cx += ldx(len, dir);
             cy += ldy(len, dir);
             this.points.push(cx);
             this.points.push(cy);
             
-            var r = Math.random()
-            
-            if (Math.round(r) == 1)
+            if (canbranch==true) 
             {
-                if (bc<5)
+                var r = Math.random()
+                
+                if (r < .1)
                 {
-                    new Plant(cx, cy, 2, 150);
+                    bc++
+                    if (bc<10)
+                    {
+                        new Plant(cx, cy, 10, 50, 20, dir, false);
+                    }
+                    
                 }
-                bc++
             }
+
         }
     
         this.element.setAttribute("points", this.points.join(" "));
@@ -47,7 +52,8 @@ function Plant(x,y,len,vert)
     
     this.install();
     this.gen();
+   
 
 }
 
-new Plant(520,800,5,200);
+new Plant(520,800, 20,10,20, -90,true);
