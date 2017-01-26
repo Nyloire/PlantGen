@@ -24,17 +24,17 @@ function Plant(x,y,len,anglerange,verts,startdir,canbranch)
     
         for (var _ = 0; _ < verts; _++)
         {
-            dir += (((Math.random() * anglerange) - (anglerange/2)));
+            dir += -90;
             cx += ldx(len, dir);
             cy += ldy(len, dir);
             this.points.push(cx);
             this.points.push(cy);
             
-            if (canbranch==true) 
+            if (canbranch===true)
             {
                 var r = Math.random()
                 
-                if (r < .1)
+                if (r < .2)
                 {
                     bc++
                     if (bc<10)
