@@ -23,6 +23,7 @@ function Stem(x,y,o,spacing,len,twist,shade,canbranch)
     this._ = 0;
     this.points = 200;
     this.len = len;
+    this.clr = 0;
     
     this.update = function()
     {
@@ -34,13 +35,14 @@ function Stem(x,y,o,spacing,len,twist,shade,canbranch)
         if (o > 1) {
             o -= .02;
         }
-        shade -= 2;
+        shade -= 1;
+        this.clr -=1
     
         c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
         c.setAttribute("cx", x);
         c.setAttribute("cy", y);
         c.setAttribute("r", o);
-        c.setAttribute("fill", "rgb(255," + shade + "," + shade + ")");
+        c.setAttribute("fill", "rgb(" + shade +"," + shade + "," + shade + ")");
     
         if (canbranch === true) {
             var r = Math.random()
@@ -58,5 +60,5 @@ function Stem(x,y,o,spacing,len,twist,shade,canbranch)
     }
 }
 
-stems.push(new Stem(window.innerWidth/2,(window.innerHeight/2)+200,Math.random()*6+2,2,Math.random()*150+50,Math.random()*50,255,true));
+stems.push(new Stem((window.innerWidth/2)-15,(window.innerHeight/2),Math.random()*6+2,2,Math.random()*150+50,Math.random()*50,240,true));
 
