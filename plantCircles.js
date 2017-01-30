@@ -19,6 +19,8 @@ window.requestAnimationFrame(update);
 
 function Stem(x,y,o,spacing,len,twist,shade,canbranch)
 {
+    
+
     this.dir = -90;
     this._ = 0;
     this.points = 200;
@@ -60,5 +62,5 @@ function Stem(x,y,o,spacing,len,twist,shade,canbranch)
     }
 }
 
-stems.push(new Stem((window.innerWidth/2)-15,(window.innerHeight/2),Math.random()*6+2,2,Math.random()*150+50,Math.random()*50,240,true));
+stems.push(new Stem((window.innerWidth/2)-15,(window.innerHeight/2),Math.random()*6+2,2,Math.random()*150+50,Math.random()*50,200,true));
 
