@@ -1,22 +1,41 @@
-function Grid(x,y,o)
+
+function Grid()
 {
 
-    svg = document.getElementById("svg")
-    this.point = Math.round(Math.random())
+    this.points = [];
 
-    c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-    c.setAttribute("cx", x);
-    c.setAttribute("cy", y);
-    c.setAttribute("r", o);
-    c.setAttribute("fill", "gray");
-	
-	console.log(this.point);
+    svg = document.getElementById("svg");
+    
+    this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    this.g.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
+    svg.appendChild(this.g);
 
-    svg.appendChild(c);
+    for (var _x = 0; _x <5; _x++) 
+    {
+        for (var _y = 0; _y <5; _y++)
+        {
+            this.point = Math.round(Math.random())
+            c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+            c.setAttribute("cx", _x*40);
+            c.setAttribute("cy", _y*40);
+            c.setAttribute("r", 5);
+            c.setAttribute("fill", "gray");
+
+            this.g.appendChild(c);
+        }
+    };
+
+    this.onresize = function()
+    {
+        this.g.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
+    }
+    
+    
   
 }
-    Grid((window.innerWidth / 2) - 90,(window.innerHeight / 2) + 100,5)
-    Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 100,5)
+   grid = new Grid();
+
+   /* Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 100,5)
     Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 100,5)
     Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 100,5)
     Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 100,5)
@@ -44,3 +63,5 @@ function Grid(x,y,o)
     Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 260,5)
     Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 260,5)
     Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 260,5)
+
+    console.log(Math.seedrandom(pointid))*/
