@@ -1,67 +1,90 @@
+gridgrp = document.getElementById("g")
+linestart = false;
+
+function Line(x1,y1,x2,y2)
+{ 
+
+    this.l = document.createElementNS("http://www.w3.org/2000/svg", "line");
+    this.l.setAttribute("cx", x*40);
+    this.l.setAttribute("cy", y*40);
+    this.l.setAttribute("r", 5);
+    this.l.setAttribute("fill", "gray");
+
+    gridgrp.appendChild(this.l);
+}
+
+function Dot(x,y)
+{
+    this.install = function()
+    {
+        this.c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
+        this.c.setAttribute("cx", x*40);
+        this.c.setAttribute("cy", y*40);
+        this.c.setAttribute("r", 5);
+        this.c.setAttribute("fill", "gray");
+
+        this.addMouseDown(this.c, this);
+        gridgrp.appendChild(this.c);
+    }
+
+
+    this.addMouseDown = function(elem, obj)
+    {
+        elem.addEventListener("mousedown", function(){obj.mouseDown();}, false);
+    }
+
+    this.mouseDown = function()
+    {
+        if (linestart==false)
+        {
+            linestart=true;
+            grid.points[x][y]++
+
+            console.log(grid.points)
+        }
+        else if (linestart===true)
+        {
+            linestart=false;
+            grid.points[x][y]++
+
+            console.log(grid.points)
+        }
+
+    }
+
+    this.install();
+}
+
 
 function Grid()
 {
-
     this.points = [];
 
     svg = document.getElementById("svg");
     
-    this.g = document.createElementNS("http://www.w3.org/2000/svg", "g");
-    this.g.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
-    svg.appendChild(this.g);
+    gridgrp = document.createElementNS("http://www.w3.org/2000/svg", "g");
+    gridgrp.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
+    svg.appendChild(gridgrp);
 
     for (var _x = 0; _x <5; _x++) 
     {
+        this.points.push([]);
+
         for (var _y = 0; _y <5; _y++)
         {
-            this.point = Math.round(Math.random())
-            c = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            c.setAttribute("cx", _x*40);
-            c.setAttribute("cy", _y*40);
-            c.setAttribute("r", 5);
-            c.setAttribute("fill", "gray");
+            
+            this.points[this.points.length-1].push(0);
 
-            this.g.appendChild(c);
+            new Dot(_x,_y)
         }
     };
 
     this.onresize = function()
     {
-        this.g.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
+        this.gridgrp.style.transform = "translate("+(window.innerWidth/2-100)+"px, "+(window.innerHeight/2+100)+"px)"
     }
     
     
   
 }
    grid = new Grid();
-
-   /* Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 100,5)
-    Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 100,5)
-    Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 100,5)
-    Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 100,5)
-    
-    Grid((window.innerWidth / 2) - 90,(window.innerHeight / 2) + 140,5)
-    Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 140,5)
-    Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 140,5)
-    Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 140,5)
-    Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 140,5)
-    
-    Grid((window.innerWidth / 2) - 90,(window.innerHeight / 2) + 180,5)
-    Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 180,5)
-    Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 180,5)
-    Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 180,5)
-    Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 180,5)
-    
-    Grid((window.innerWidth / 2) - 90,(window.innerHeight / 2) + 220,5)
-    Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 220,5)
-    Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 220,5)
-    Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 220,5)
-    Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 220,5)
-    
-    Grid((window.innerWidth / 2) - 90,(window.innerHeight / 2) + 260,5)
-    Grid((window.innerWidth / 2) - 50,(window.innerHeight / 2) + 260,5)
-    Grid((window.innerWidth / 2) - 15,(window.innerHeight / 2) + 260,5)
-    Grid((window.innerWidth / 2) + 20,(window.innerHeight / 2) + 260,5)
-    Grid((window.innerWidth / 2) + 55,(window.innerHeight / 2) + 260,5)
-
-    console.log(Math.seedrandom(pointid))*/
