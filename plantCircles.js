@@ -56,7 +56,7 @@ function Stem(x,y,o,spacing,len,twist,shade,canbranch)
     
             if (r < .1) {
                 bc++
-                if (bc < 8) {
+                if (bc < 5) {
                     stems.push(new Stem(x, y, o, spacing, len, twist, shade, true));
     
                 }

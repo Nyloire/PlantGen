@@ -1,14 +1,19 @@
 gridgrp = document.getElementById("g")
 linestart = false;
+curline = null;
 
 function Line(x1,y1,x2,y2)
 { 
 
     this.l = document.createElementNS("http://www.w3.org/2000/svg", "line");
-    this.l.setAttribute("cx", x*40);
-    this.l.setAttribute("cy", y*40);
-    this.l.setAttribute("r", 5);
-    this.l.setAttribute("fill", "gray");
+    this.l.setAttribute("x1", x1*40);
+    this.l.setAttribute("y1", y1*40);
+    this.l.setAttribute("x2", x2*40);
+    this.l.setAttribute("y2", y2*40);
+    this.l.setAttribute("stroke", "black");
+    this.l.setAttribute("stroke-width", "10px");
+    this.l.style.strokeLinecap = "round";
+    this.l.style.pointerEvents = "none";
 
     gridgrp.appendChild(this.l);
 }
@@ -40,12 +45,17 @@ function Dot(x,y)
             linestart=true;
             grid.points[x][y]++
 
+            curline = new Line(x,y,x,y);
+
             console.log(grid.points)
         }
         else if (linestart===true)
         {
             linestart=false;
             grid.points[x][y]++
+
+            curline.l.setAttribute("x2", x*40)
+            curline.l.setAttribute("y2", y*40)
 
             console.log(grid.points)
         }
